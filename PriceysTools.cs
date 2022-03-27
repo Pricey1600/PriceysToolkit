@@ -1,15 +1,19 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 public class PriceysTools : EditorWindow
 {
-    Texture2D headerSectionTexture, meshRendererSectionTexture;
-    Color headerSectionColour = new Color(13f / 255f, 32f / 255f, 44f / 255f, 1f), meshRendererSectionColour = new Color(255f / 255f, 0 / 255f, 0 / 255f, 1f);
-    Rect headerSection, meshRendererSection;
+    Texture2D headerSectionTexture, meshRendererSectionTexture, instanceCounterSectionTexture;
+    Color headerSectionColour = new Color(13f / 255f, 32f / 255f, 44f / 255f, 0.5f), meshRendererSectionColour = new Color(255f / 255f, 0 / 255f, 0 / 255f, 0.5f), instanceCounterSectionColour = new Color(0 / 255f, 255f / 255f, 0 / 255f, 0.5f);
+    Rect headerSection, meshRendererSection, instanceCounterSection;
 
     public Material newMat;
+    public MonoBehaviour scriptToCount;
+    public GameObject prefabToCount;
+    private int numOfPrefabs = 0;
 
     [MenuItem("Window/Priceys Toolkit")]
     static void OpenWindow()
@@ -29,6 +33,7 @@ public class PriceysTools : EditorWindow
         DrawLayouts();
         DrawHeader();
         DrawMeshRendererSelection();
+        DrawInstanceCounter();
 
         
 
@@ -47,8 +52,14 @@ public class PriceysTools : EditorWindow
         meshRendererSection.width = Screen.width / 3f;
         meshRendererSection.height = Screen.height - 50f;
 
+        instanceCounterSection.x = Screen.width / 3f;
+        instanceCounterSection.y = 50;
+        instanceCounterSection.width = Screen.width / 3f;
+        instanceCounterSection.height = Screen.height / 2 - 50f;
+
         GUI.DrawTexture(headerSection, headerSectionTexture);
         GUI.DrawTexture(meshRendererSection, meshRendererSectionTexture);
+        GUI.DrawTexture(instanceCounterSection, instanceCounterSectionTexture);
     }
 
     void InitTextures()
@@ -60,6 +71,10 @@ public class PriceysTools : EditorWindow
         meshRendererSectionTexture = new Texture2D(1, 1);
         meshRendererSectionTexture.SetPixel(0, 0, meshRendererSectionColour);
         meshRendererSectionTexture.Apply();
+
+        instanceCounterSectionTexture = new Texture2D(1, 1);
+        instanceCounterSectionTexture.SetPixel(0, 0, instanceCounterSectionColour);
+        instanceCounterSectionTexture.Apply();
     }
 
     void DrawHeader()
@@ -93,6 +108,18 @@ public class PriceysTools : EditorWindow
         GUILayout.EndArea();
     }
 
+    void DrawInstanceCounter()
+    {
+        GUILayout.BeginArea(instanceCounterSection);
+
+        scriptToCount = (MonoBehaviour)EditorGUILayout.ObjectField("MonoBehaviour", scriptToCount, typeof(MonoBehaviour));
+
+        var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 15, fontStyle = FontStyle.Bold };
+        GUILayout.Label(numOfPrefabs.ToString(), style, GUILayout.ExpandWidth(true));
+
+        GUILayout.EndArea();
+    }
+
     private void SelectRenderers(bool replace)
     {
         Transform[] objs = Selection.transforms;
@@ -120,6 +147,12 @@ public class PriceysTools : EditorWindow
         Selection.objects = childObjs.ToArray();
 
 
+    }
+
+    private void CountInstances()
+    {
+        
+        
     }
 }
 

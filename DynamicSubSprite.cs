@@ -34,7 +34,7 @@ public class DynamicSubSprite : MonoBehaviour
 
     private void OnEnable()
     {
-        GO.GetComponentInParent<SpriteSizeManager>().addMe(this);
+        GO.GetComponentInParent<DynamicSprite>().addMe(this);
         prevPos = GO.transform.localPosition;
         askForParentSize();
         checkDistances();
@@ -47,7 +47,7 @@ public class DynamicSubSprite : MonoBehaviour
         //}
         try
         {
-            GO.GetComponentInParent<SpriteSizeManager>().removeMe(this);
+            GO.GetComponentInParent<DynamicSprite>().removeMe(this);
         }
         catch
         {
@@ -197,8 +197,8 @@ public class DynamicSubSprite : MonoBehaviour
 
     private void askForParentSize()
     {
-        parentWidth = GO.GetComponentInParent<SpriteSizeManager>().objectWidth;
-        parentHeight = GO.GetComponentInParent<SpriteSizeManager>().objectHeight;
+        parentWidth = GO.GetComponentInParent<DynamicSprite>().objectWidth;
+        parentHeight = GO.GetComponentInParent<DynamicSprite>().objectHeight;
     }
 
     public void flip(string axis)

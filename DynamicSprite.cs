@@ -13,7 +13,7 @@ public class DynamicSprite : MonoBehaviour
 
     private SpriteRenderer SR;
 
-    public List<SubSpriteSizeManager> subManagers = new List<SubSpriteSizeManager>();
+    public List<DynamicSubSprite> subManagers = new List<DynamicSubSprite>();
 
     private bool validating;
 
@@ -25,8 +25,8 @@ public class DynamicSprite : MonoBehaviour
     //    objectHeight = SR.size.y;
     //    objectWidth = SR.size.x;
     //    storeSize();
-    //    //_subManagers = gameObject.GetComponentsInChildren<SubSpriteSizeManager>();
-    //    //foreach(SubSpriteSizeManager manager in _subManagers)
+    //    //_subManagers = gameObject.GetComponentsInChildren<DynamicSubSprite>();
+    //    //foreach(DynamicSubSprite manager in _subManagers)
     //    //{
     //    //    subManagers.Add(manager);
     //    //}
@@ -45,7 +45,7 @@ public class DynamicSprite : MonoBehaviour
     }
     private void OnDestroy()
     {
-        foreach(SubSpriteSizeManager subManager in subManagers)
+        foreach(DynamicSubSprite subManager in subManagers)
         {
             DestroyImmediate(subManager);
         }
@@ -77,7 +77,7 @@ public class DynamicSprite : MonoBehaviour
         {
             return;
         }
-        foreach(SubSpriteSizeManager manager in subManagers)
+        foreach(DynamicSubSprite manager in subManagers)
         {
             manager.adapt(objectWidth, objectHeight);
         }
@@ -94,14 +94,14 @@ public class DynamicSprite : MonoBehaviour
         SR.size = new Vector2(objectWidth, objectHeight);
     }
 
-    public void addMe(SubSpriteSizeManager subManager)
+    public void addMe(DynamicSubSprite subManager)
     {
         if (!subManagers.Contains(subManager))
         {
             subManagers.Add(subManager);
         }
     }
-    public void removeMe(SubSpriteSizeManager subManager)
+    public void removeMe(DynamicSubSprite subManager)
     {
         if (subManagers.Contains(subManager))
         {
@@ -111,7 +111,7 @@ public class DynamicSprite : MonoBehaviour
 
     //public void prepareForDelete()
     //{
-    //    foreach(SubSpriteSizeManager subManager in subManagers)
+    //    foreach(DynamicSubSprite subManager in subManagers)
     //    {
     //        subManager.waitingForDelete = true;
     //    }

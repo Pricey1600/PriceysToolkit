@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: c2fcf4ba46b49064f8f3f54d6f6c2ca1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - defaultParentSprite: {fileID: 1473799712130328770, guid: 39e0e268a5f914c4da41a3ede3ad23cc, type: 3}
+  - defaultChildSprite: {fileID: 21300000, guid: 99c5be9fdaeae094592f6d8174e7cff2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
